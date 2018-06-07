@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Time Now</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#citys").change(function () {
+                var value = this.value;
+                $.ajax({
+                    type: 'POST',
+                    url: '/gettimezone',
+                    data:{val: value},
+                    success: function (data) {
+                        $("#time").html(data);
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+<p>Time now</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>City</th>
+            <th>Curent Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <select id="citys">
+                <option value="Asia/Ho_Chi_Minh" selected="selected">Ha Noi</option>
+                <option value="America/Los_Angeles">Washington</option>
+                <option value="Europe/Madrid">Madrid</option>
+                <option value="Asia/Phnom_Penh">Phnom Penh</option>
+                <option value="Asia/Kolkata">New Delhi</option>
+                <option value="Asia/Singapore">Singapore</option>
+                <option value="Asia/Manila">Manila</option>
+                <option value="Europe/Kaliningrad">Nga</option>
+            </select>
+        </td>
+        <td>
+            <div id="time" th:text="*{timenow}"></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
